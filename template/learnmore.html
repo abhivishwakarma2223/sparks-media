@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}The Protocol | Spark Media{% endblock %}
+
+{% block body %}
+<main class="learn-page-wrapper">
+
+  <section class="learn-hero">
+    <div class="grid-overlay"></div>
+    <div class="container">
+      <div class="hero-split">
+        <div class="hero-text">
+          <div class="badge-pill"><span class="pulse"></span> Internal Logic</div>
+          <h1 class="glitch-header" data-text="We Don't Guess.">We Don't Guess.<br><span class="text-highlight">We Calculate.</span></h1>
+          <p class="hero-desc">
+            Virality isn't luck; it's a formula. At Spark Media, we fuse behavioral psychology with algorithmic data to engineer content that doesn't just get views—it captures minds.
+          </p>
+        </div>
+        <div class="hero-visual">
+          <div class="cube-wrapper">
+            <div class="cube">
+              <div class="face front">Strategy</div>
+              <div class="face back">Data</div>
+              <div class="face right">Creative</div>
+              <div class="face left">Growth</div>
+              <div class="face top"></div>
+              <div class="face bottom"></div>
+            </div>
+            <div class="cube-shadow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="philosophy-section">
+    <div class="container">
+      <div class="section-header-center">
+        <h2>The <span class="neon-cyan">Core Engine</span></h2>
+        <p>Our methodology is built on three non-negotiable pillars.</p>
+      </div>
+
+      <div class="circuit-grid">
+        <div class="circuit-card">
+          <div class="circuit-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>Psychology First</h3>
+          <p>Algorithms change. Human nature doesn't. We target the psychological triggers (Curiosity, FOMO, Status) that force users to stop scrolling.</p>
+          <div class="circuit-line"></div>
+        </div>
+
+        <div class="circuit-card">
+          <div class="circuit-icon"><i class="fa-solid fa-database"></i></div>
+          <h3>Data-Backed Creative</h3>
+          <p>We don't rely on "vibes." Every hook, cut, and caption is A/B tested against real-time retention graphs to maximize watch time.</p>
+          <div class="circuit-line"></div>
+        </div>
+
+        <div class="circuit-card">
+          <div class="circuit-icon"><i class="fa-solid fa-rocket"></i></div>
+          <h3>Distribution Velocity</h3>
+          <p>Great content dies without distribution. We utilize a hybrid of organic momentum and paid amplification to scale winners instantly.</p>
+          <div class="circuit-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="protocol-section">
+    <div class="container">
+      <div class="protocol-layout">
+        <div class="protocol-left">
+          <h2>The Execution <br><span class="neon-purple">Protocol</span></h2>
+          <p>From initial audit to market dominance. This is the roadmap we deploy for every partner.</p>
+          <a href="#contact" class="btn-glow">Initialize Project <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="protocol-timeline">
+          <div class="timeline-item">
+            <div class="tl-marker">01</div>
+            <div class="tl-content">
+              <h4>System Audit & Discovery</h4>
+              <p>We jack into your matrix. We analyze your current metrics, competitor gaps, and audience signals to build the foundation.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-marker">02</div>
+            <div class="tl-content">
+              <h4>Blueprint Architecture</h4>
+              <p>We design the roadmap. 90 days of content pillars, visual identity systems, and the specific "North Star" KPIs we will chase.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-marker">03</div>
+            <div class="tl-content">
+              <h4>High-Fidelity Production</h4>
+              <p>Cameras roll. We produce retention-optimized assets. Vertical, horizontal, static—everything formatted for platform native behavior.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-marker">04</div>
+            <div class="tl-content">
+              <h4>Algorithmic Injection</h4>
+              <p>We publish and amplify. Using paid funnels to push high-performing organic content to new audiences, creating a viral loop.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="faq-title">Decoded <span class="neon-cyan">Data</span></h2>
+      
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>Do you work with startups or established brands?</span>
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <div class="accordion-content">
+            <p>We work with both. The requirement isn't size; it's ambition. Whether you're Seed Round or Fortune 500, if you're ready to scale aggressively, we fit.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>What platforms do you specialize in?</span>
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <div class="accordion-content">
+            <p>We are platform-agnostic but vertical-video obsessed. Currently, our highest ROI comes from Instagram Reels, YouTube Shorts, LinkedIn, and TikTok.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>How long until we see results?</span>
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <div class="accordion-content">
+            <p>Our "Discovery Phase" takes 2 weeks. You usually see metric uplifts within 30 days of the first content sprint. Full brand dominance is a 6-12 month game.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Accordion Logic
+    const accBtns = document.querySelectorAll('.accordion-btn');
+    accBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+
+    // Intersection Observer for Timeline Reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      observer.observe(item);
+    });
+  });
+</script>
+
+{% endblock %}

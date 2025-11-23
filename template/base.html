@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="shortcut icon" href="{% static 'images/favicon.jpg' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>{% block title %}Spark.{% endblock %}</title>
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  integrity="sha512-Fo3rlrZj/k7ujTTXRNtD2XDzC6q7xBvD4k1vHb8FZ0fWVkPHwFZ5pMspS1+UuEAVg8kpVj2Wtv1t3FZl8+M4Zw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+
+  
+  <!-- Remove integrity & crossorigin -->
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <!-- Navbar (replace existing) -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="brand">Spark.</div>
+
+  <!-- accessible hamburger button -->
+  <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+    <span class="hamburger" aria-hidden="true">&#9776;</span>
+  </button>
+
+  <ul class="nav-links" id="nav-links" role="menu">
+    <li role="none"><a role="menuitem" href="{% url 'index' %}">Home</a></li>
+    <li role="none"><a role="menuitem" href="{% if request.path == '/' %}#services{% else %}{% url 'index' %}#services{% endif %}">Services</a></li>
+    <li role="none"><a role="menuitem" href="{% if request.path == '/' %}#pricing{% else %}{% url 'index' %}#pricing{% endif %}">Pricing</a></li>
+    <li role="none"><a role="menuitem" href="#">Project</a></li>
+    <li role="none"><a role="menuitem" href="{% if request.path == '/' %}#contact{% else %}{% url 'index' %}#contact{% endif %}">Contact</a></li>
+    <li class="get-quote" role="none"><a role="menuitem" href="#">Get Quote</a></li>
+  </ul>
+</nav>
+
+
+  <!-- Content from child templates -->
+  <div class="content">
+    {% block body %}
+    {% endblock body %}
+  </div>
+
+  <!-- Footer -->
+<footer class="cyber-footer">
+  
+  <div class="footer-glow-line"></div>
+  
+  <div class="footer-bg-grid"></div>
+
+  <div class="container">
+    <div class="footer-grid">
+      
+      <div class="footer-col brand-col">
+        <h2 class="footer-brand">Spark<span class="dot">.</span></h2>
+        <p class="footer-desc">
+          Architecting the digital future. We fuse data with design to create brands that don't just exist—they dominate.
+        </p>
+        <div class="system-status">
+          <span class="status-light"></span>
+          <span>All Systems Nominal</span>
+        </div>
+      </div>
+
+      <div class="footer-col center-col">
+        <h3 class="col-title center-text">Join the Network</h3>
+        <div class="social-hub-grid">
+          <a href="https://www.instagram.com/sparksocialmedia.in/" target="_blank" class="social-glass instagram" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/rajat-srivastava-sparkmedia/" target="_blank" class="social-glass linkedin" title="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.instagram.com/_rajatsrivastava/" target="_blank" class="social-glass facebook" title="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="https://wa.me/9427407354" target="_blank" class="social-glass whatsapp" title="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col action-col">
+        <h3 class="col-title">Data Feed</h3>
+        <p class="footer-sm-text">Subscribe for encrypted updates and insights.</p>
+        
+        <form class="footer-newsletter">
+          <input type="email" placeholder="Enter Email ID" required>
+          <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+
+        <a href="#" class="footer-cta-btn">
+          Get Quote <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Spark Media. Encrypted & Secured.</p>
+      <div class="legal-links">
+        <a href="#">Privacy Protocol</a>
+        <span class="separator">/</span>
+        <a href="#">Terms of Access</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- Mobile Navbar Script -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+
+</body>
+
+</html>
