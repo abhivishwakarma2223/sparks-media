@@ -414,50 +414,47 @@
           <div class="radar-scan"></div>
         </div>
       </div>
-
-      <div class="terminal-form-panel">
-         <h2 class="terminal-title">Get In Touch</h2>
-          <p class="terminal-desc">
-            Ready to ignite? Secure your slot. Fill out the transmission form to initialize the partnership protocol.
-          </p>
-        <form id="contactForm" class="cyber-form" autocomplete="on" novalidate>
-        <div class="input-group">
+<div class="terminal-form-panel">
+    <h2 class="terminal-title">Get In Touch</h2>
+    <p class="terminal-desc">
+        Ready to ignite? Secure your slot. Fill out the transmission form.
+    </p>
+    
+    <form id="contactForm" class="cyber-form" novalidate>
+        {% csrf_token %} <div class="input-group">
             <input type="text" id="name" name="name" required placeholder=" " />
             <label for="name">Name</label>
             <div class="input-highlight"></div>
-          </div>
+        </div>
 
-          <div class="input-group">
+        <div class="input-group">
             <input type="email" id="email" name="email" required placeholder=" " />
             <label for="email">Email</label>
             <div class="input-highlight"></div>
-          </div>
+        </div>
 
-          <div class="input-group">
+        <div class="input-group">
             <input type="tel" id="phone" name="phone" placeholder=" " />
             <label for="phone">Phone</label>
             <div class="input-highlight"></div>
-          </div>
+        </div>
 
-          <div class="input-group full-width">
+        <div class="input-group full-width">
             <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
             <label for="message">Message</label>
             <div class="input-highlight"></div>
-          </div>
+        </div>
 
-          <button type="submit" class="cyber-btn" id="submitBtn">
-            <span class="btn-content">Submit</span>
+        <button type="submit" class="cyber-btn" id="submitBtn">
+            <span class="btn-content">Submit</span> 
             <div class="btn-glitch"></div>
-          </button>
-          
-          <div id="formMessage" class="form-success" hidden>
-            Transmission Received. Stand by for response.
-          </div>
-        </form>
-      </div>
+        </button>
+    </form>
 
+    <div id="formMessage" class="form-success" hidden>
+        Transmission Received. Stand by for response.
     </div>
-  </div>
+</div>
 </section>
 
 
@@ -699,148 +696,71 @@
 </script>
 
 
-  <!--form page-->
-  <script>
-  (function(){
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const formMessage = document.getElementById('formMessage');
-
-    // Utility: set field error
-    function setFieldError(input, message){
-      const wrapper = input.closest('.field');
-      if(!wrapper) return;
-      wrapper.classList.toggle('has-error', !!message);
-      const err = wrapper.querySelector('.field-error');
-      if(err) err.textContent = message || '';
-      input.setAttribute('aria-invalid', !!message);
-    }
-
-    // Basic HTML5 validation + nicer messages
-    function validateForm(){
-      let valid = true;
-      const fields = form.querySelectorAll('input[required], textarea[required]');
-      fields.forEach((el) => {
-        setFieldError(el, '');
-        if(!el.checkValidity()){
-          valid = false;
-          // Friendly messages
-          if(el.validity.valueMissing) setFieldError(el, 'This field is required');
-          else if(el.validity.typeMismatch) setFieldError(el, 'Please enter a valid value');
-          else if(el.validity.patternMismatch) setFieldError(el, 'Please match the required format');
-          else setFieldError(el, 'Invalid input');
-        }
-      });
-      return valid;
-    }
-
-    // On focus/blur keep label state for inputs that have value
-    const inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(inp => {
-      // ensure placeholder-shown detection works: set placeholder to single space in HTML
-      inp.addEventListener('input', () => {
-        // clear field-specific error while typing
-        if(inp.closest('.field')?.classList.contains('has-error')) {
-          setFieldError(inp, '');
-        }
-      });
-    });
-
-    // submit handler (replace fake send with your real fetch/XHR to server)
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      // HONEYPOT
-      const hp = form.querySelector('input[name="website"]');
-      if(hp && hp.value.trim().length > 0){
-        // silent fail — likely bot
-        return;
-      }
-
-      if(!validateForm()) {
-        // focus first invalid
-        const firstInvalid = form.querySelector('[aria-invalid="true"]');
-        if(firstInvalid) firstInvalid.focus();
-        return;
-      }
-
-      // show loading state
-      submitBtn.classList.add('loading');
-      submitBtn.disabled = true;
-
-      // Simulate network send — replace with actual fetch POST to your server endpoint
-      setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-        // show success message
-        formMessage.hidden = false;
-        formMessage.classList.add('show');
-        formMessage.textContent = "Thanks — your message has been received. We'll get back to you shortly.";
-        // Optionally clear form:
-        form.reset();
-        // If you want to reset floating labels on browsers that rely on :placeholder-shown,
-        // re-add placeholder spaces if needed (we used placeholder=" ").
-      }, 900);
-
-      /* CRITICAL:
-         - Replace the setTimeout above with a real fetch() POST to your server API.
-         - Always validate again on the server (client-side checks are not enough).
-         - Add anti-spam (reCAPTCHA / rate-limiting) on the server.
-         - Store messages safely and notify your team (email/webhook).
-      */
-    });
-  })();
-</script>
 
 
-<!--Contact Page-->
+<!--Contact Form Message Send Logic-->
 <script>
-  (function(){
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const formMessage = document.getElementById('formMessage');
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Stop page reload
 
-    if (!form) return;
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      // HONEYPOT CHECK
-      const hp = form.querySelector('.honeypot');
-      if(hp && hp.value.length > 0) return; // Silent fail for bots
-
-      // Check validity
-      if(!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      // Loading State
-      const originalText = submitBtn.querySelector('.btn-content').innerText;
-      submitBtn.querySelector('.btn-content').innerText = "Transmitting...";
-      submitBtn.disabled = true;
-      submitBtn.style.opacity = "0.7";
-
-      // Simulate Server Request
-      setTimeout(() => {
-        submitBtn.querySelector('.btn-content').innerText = "Sent";
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = "1";
+        const form = e.target;
+        const formData = new FormData(form);
         
-        // Success Message
-        formMessage.hidden = false;
-        form.reset();
-        
-        // Hide message after 5 seconds
-        setTimeout(() => {
-          formMessage.hidden = true;
-          submitBtn.querySelector('.btn-content').innerText = originalText;
-        }, 5000);
-      }, 1500);
+        // These are the lines that were causing errors because the IDs were missing
+        const responseDiv = document.getElementById('formMessage'); // Matches HTML id="formMessage"
+        const submitBtn = document.getElementById('submitBtn');     // Matches HTML id="submitBtn"
+        const btnContent = submitBtn.querySelector('.btn-content'); // Matches HTML class="btn-content"
+
+        if (!responseDiv || !submitBtn || !btnContent) {
+            console.error("Error: HTML elements missing. Check IDs.");
+            return;
+        }
+
+        // UI: Show loading state
+        const originalText = btnContent.innerText;
+        btnContent.innerText = "Sending...";
+        submitBtn.disabled = true;
+
+        // SEND data to Django
+        fetch('/contact/', {  
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Show success message
+                responseDiv.hidden = false;
+                responseDiv.style.color = '#00ff9d';
+                responseDiv.innerText = data.message;
+                form.reset(); 
+            } else {
+                // Show error message
+                responseDiv.hidden = false;
+                responseDiv.style.color = '#ff4444';
+                responseDiv.innerText = "Error: " + data.message;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            responseDiv.hidden = false;
+            responseDiv.innerText = "An unexpected error occurred.";
+        })
+        .finally(() => {
+            // Reset button
+            btnContent.innerText = originalText;
+            submitBtn.disabled = false;
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                 responseDiv.hidden = true;
+            }, 5000);
+        });
     });
-  })();
 </script>
-
-
 </body>
 
 </html>
