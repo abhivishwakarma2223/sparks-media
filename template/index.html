@@ -458,69 +458,75 @@
 
 </div>
 </section>
-
-
-    <!--menu toggle-->
 <script>
-  (function () {
-    const toggle = document.getElementById('menu-toggle');
-    const navLinks = document.getElementById('nav-links');
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-links a');
+    const navbar = document.querySelector('.navbar-glass');
+    
+    if (!toggleBtn || !mobileOverlay) return;
 
-    if (!toggle || !navLinks) return;
 
-    // toggle open/close
-    function setOpen(isOpen) {
-      if (isOpen) {
-        navLinks.classList.add('active');
-        toggle.setAttribute('aria-expanded', 'true');
-        // prevent body scroll when open
-        document.body.style.overflow = 'hidden';
-        // move focus to first link for better a11y
-        const firstLink = navLinks.querySelector('a');
-        if (firstLink) firstLink.focus({ preventScroll: true });
+    // --- 1. Master Toggle Function ---
+    // forceClose=true is used when a link or the backdrop is clicked.
+    function toggleMenu(forceClose = false) {
+      const isCurrentlyOpen = mobileOverlay.classList.contains('active');
+      const newState = forceClose || isCurrentlyOpen ? 'closing' : 'opening';
+
+      if (newState === 'closing') {
+        toggleBtn.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Enable scroll
       } else {
-        navLinks.classList.remove('active');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-        toggle.focus({ preventScroll: true });
+        toggleBtn.classList.add('active');
+        mobileOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Disable scroll
       }
     }
 
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      setOpen(!isOpen);
+    // --- 2. Hamburger Click Handler ---
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // <--- CRITICAL FIX: Stops the click from bubbling up to the document
+      toggleMenu();
     });
 
-
-    
-    // close when clicking a nav link (good UX on mobile)
-    navLinks.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') {
-        setOpen(false);
-      }
+    // --- 3. Close Menu When Clicking a Link (Internal Navigation) ---
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (mobileOverlay.classList.contains('active')) {
+          // Force close after a small delay to allow smooth scroll to start
+          setTimeout(() => toggleMenu(true), 150); 
+        }
+      });
     });
 
-    // close on ESC or outside click
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setOpen(false);
-    });
-
+    // --- 4. NEW LOGIC: Close Menu When Clicking Outside (Backdrop) ---
     document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !toggle.contains(e.target)) {
-        // only close if it is open and we clicked outside
-        if (navLinks.classList.contains('active')) setOpen(false);
+      const isMenuOpen = mobileOverlay.classList.contains('active');
+
+      // If the menu is open, and the click target is NOT inside the menu OR the toggle button:
+      if (isMenuOpen && 
+          !mobileOverlay.contains(e.target) && 
+          !toggleBtn.contains(e.target)) 
+      {
+        toggleMenu(true);
       }
     });
 
-    // optional: close on resize to larger screens
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 980 && navLinks.classList.contains('active')) {
-        setOpen(false);
+    // --- 5. Sticky Navbar Blur on Scroll ---
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
       }
     });
 
-  })();
+  });
 </script>
+
 <!--Hero Page-->
 <script>
   // 3D Tilt Effect for Hero Section

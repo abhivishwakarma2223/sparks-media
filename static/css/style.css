@@ -153,6 +153,18 @@ h1, h2, h3 {
   outline-offset: 4px;
 }
 
+.mobile-overlay {
+  opacity: 0;
+  pointer-events: none; /* This hides it from clicks when closed */
+  transition: 0.4s ease;
+
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+  pointer-events: all; /* This lets you click it when open */
+}
+
 @media (max-width: 480px) {
   .menu-toggle { width: 44px; height: 40px; font-size: 20px; }
   .nav-links { width: 88%; }
@@ -178,6 +190,7 @@ h1, h2, h3 {
     border-left: 1px solid rgba(255,255,255,0.03);
     margin-right: 0 !important;
     scrollbar-width: thin;
+    margin-top: 50px;
   }
 
 
@@ -414,7 +427,11 @@ h1, h2, h3 {
 .hero-3d-container {
   margin-top: 100px;
 }
+.glass-badge {margin-top: 0px;}
+.hero-actions {margin-bottom: 50px;}
 }
+
+
 
 
 /* ========================
@@ -605,6 +622,102 @@ h1, h2, h3 {
   opacity: 0.6;
   pointer-events: none;
   z-index: 0;
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS (MAX-WIDTH: 480px)
+   Covers 420px devices
+   ========================================= */
+@media (max-width: 480px) {
+
+  /* 1. Section Spacing */
+  .services-stack-section {
+    padding: 50px 15px; /* Much less padding */
+  }
+
+  /* 2. Header Adjustment */
+  .stack-title {
+    font-size: 2.2rem; /* Smaller title */
+    margin-bottom: 15px;
+  }
+  
+  .stack-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  /* 3. Disable Sticky Header on Mobile */
+  /* On small screens, it's better to scroll past the header 
+     so the cards have full screen height */
+  .stack-header {
+    position: relative; 
+    top: 0;
+    margin-bottom: 30px;
+    text-align: left; /* Align left often looks better on mobile than center */
+  }
+
+  .decorative-line {
+    margin: 0; /* Reset center alignment if using text-align left */
+  }
+
+  /* 4. Card Layout adjustments */
+  .stack-cards-container {
+    padding-bottom: 20px;
+  }
+
+  .stack-card {
+    padding: 20px 20px; /* Compact padding */
+    border-radius: 16px;
+    margin-bottom: 15px;
+    
+    /* RESET THE STACK HEIGHTS */
+    /* This ensures cards don't start halfway down the screen */
+    top: 80px !important; 
+  }
+
+  /* 5. Override individual card tops from desktop */
+  /* We want them all to stick at the same spot on mobile */
+  .stack-card.card-1,
+  .stack-card.card-2,
+  .stack-card.card-3,
+  .stack-card.card-4,
+  .stack-card.card-5,
+  .stack-card.card-6 {
+    top: 80px !important; 
+  }
+
+  /* 6. Card Content Resizing */
+  .card-icon-wrap {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+  }
+
+  .card-icon-wrap i {
+    font-size: 24px;
+  }
+
+  .stack-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .stack-card p {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  /* 7. Tags/Pills */
+  .card-tags {
+    gap: 8px;
+  }
+
+  .card-tags li {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
 }
 
 /* --- Responsive --- */
